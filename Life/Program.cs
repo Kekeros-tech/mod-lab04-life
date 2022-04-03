@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Text.Json;
+using System.IO;
 
 namespace cli_life
 {
@@ -23,6 +25,44 @@ namespace cli_life
         public void Advance()
         {
             IsAlive = IsAliveNext;
+        }
+    }
+    public class BoardSettings
+    {
+        public int width { get; set; }
+        public int height { get; set; }
+        public int cellSize { get; set; }
+        public double liveDensity { get; set; }
+
+        public BoardSettings(int width, int height, int cellSize, double liveDensity)
+        {
+            this.width = width;
+            this.height = height;
+            this.cellSize = cellSize;
+            this.liveDensity = liveDensity;
+        }
+
+        public BoardSettings()
+        {
+            width = 0;
+            height = 0;
+            cellSize = 0;
+            liveDensity = 0;
+        }
+
+        public BoardSettings(BoardSettings bs)
+        {
+            this.width = bs.width;
+            this.height = bs.height;
+            this.cellSize = bs.cellSize;
+            this.liveDensity = bs.liveDensity;
+        }
+        
+        public static void writeToFile(string filename, BoardSettings settings)
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string jsonString = JsonSerializer.Serialize(settings, options);
+            File.WriteAllText(filename, jsonString);
         }
     }
     public class Board
@@ -46,6 +86,10 @@ namespace cli_life
 
             ConnectNeighbors();
             Randomize(liveDensity);
+        }
+
+        public Board(BoardSettings settings) : this(settings.width, settings.height, settings.cellSize, settings.liveDensity)
+        {
         }
 
         readonly Random rand = new Random();
@@ -91,11 +135,20 @@ namespace cli_life
         static Board board;
         static private void Reset()
         {
-            board = new Board(
-                width: 50,
-                height: 20,
-                cellSize: 1,
-                liveDensity: 0.5);
+            string filename = "BoardSettings.json";
+
+            BoardSettings settings = new BoardSettings(50,20,1,0.5f);
+
+            if (File.Exists(filename))
+            {
+                settings = new BoardSettings(JsonSerializer.Deserialize<BoardSettings>(File.ReadAllText(filename)));
+            }
+            else
+            {
+                BoardSettings.writeToFile(filename, settings);
+            }
+
+            board = new Board(settings);
         }
         static void Render()
         {
