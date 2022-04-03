@@ -30,8 +30,8 @@ namespace cli_life
         public readonly Cell[,] Cells;
         public readonly int CellSize;
 
-        public int Columns { get { return Cells.GetLength(0); } }
-        public int Rows { get { return Cells.GetLength(1); } }
+        public int Columns { get { return Cells.GetLength(1); } }
+        public int Rows { get { return Cells.GetLength(0); } }
         public int Width { get { return Columns * CellSize; } }
         public int Height { get { return Rows * CellSize; } }
 
@@ -39,9 +39,9 @@ namespace cli_life
         {
             CellSize = cellSize;
 
-            Cells = new Cell[width / cellSize, height / cellSize];
-            for (int x = 0; x < Columns; x++)
-                for (int y = 0; y < Rows; y++)
+            Cells = new Cell[height / cellSize, width / cellSize];
+            for (int x = 0; x < Rows; x++)
+                for (int y = 0; y < Columns; y++)
                     Cells[x, y] = new Cell();
 
             ConnectNeighbors();
@@ -64,15 +64,15 @@ namespace cli_life
         }
         private void ConnectNeighbors()
         {
-            for (int x = 0; x < Columns; x++)
+            for (int x = 0; x < Rows; x++)
             {
-                for (int y = 0; y < Rows; y++)
+                for (int y = 0; y < Columns; y++)
                 {
-                    int xL = (x > 0) ? x - 1 : Columns - 1;
-                    int xR = (x < Columns - 1) ? x + 1 : 0;
+                    int xL = (x > 0) ? x - 1 : Rows - 1;
+                    int xR = (x < Rows - 1) ? x + 1 : 0;
 
-                    int yT = (y > 0) ? y - 1 : Rows - 1;
-                    int yB = (y < Rows - 1) ? y + 1 : 0;
+                    int yT = (y > 0) ? y - 1 : Columns - 1;
+                    int yB = (y < Columns - 1) ? y + 1 : 0;
 
                     Cells[x, y].neighbors.Add(Cells[xL, yT]);
                     Cells[x, y].neighbors.Add(Cells[x, yT]);
@@ -103,7 +103,7 @@ namespace cli_life
             {
                 for (int col = 0; col < board.Columns; col++)   
                 {
-                    var cell = board.Cells[col, row];
+                    var cell = board.Cells[row, col];
                     if (cell.IsAlive)
                     {
                         Console.Write('*');
