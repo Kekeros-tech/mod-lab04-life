@@ -26,6 +26,14 @@ namespace cli_life
         {
             IsAlive = IsAliveNext;
         }
+        public char charRepresentation()
+        {
+            return IsAlive ? '1' : '0';
+        }
+        public void boolRepresentation(char ch)
+        {
+            IsAlive =  ch == '1' ? true : false;
+        }
     }
     public class BoardSettings
     {
@@ -129,6 +137,59 @@ namespace cli_life
                 }
             }
         }
+        public static void WriteToFile(string filename, Board board)
+        {
+            using (StreamWriter sw = File.CreateText(filename))
+            {
+                int col = board.Columns;
+                int row = board.Rows;
+                int cellSize = board.CellSize;
+
+                sw.WriteLine(col.ToString());
+                sw.WriteLine(row.ToString());
+                sw.WriteLine(cellSize.ToString());
+
+                for (int i = 0; i < row; i++)
+                {
+                    for (int j = 0; j < col; j++)
+                    {
+                        sw.Write(board.Cells[i, j].charRepresentation());
+                    }
+                    sw.Write('\n');
+                }
+            }
+        }
+        public static Board ReadFromFile(string filename)
+        {
+            using (StreamReader sr = File.OpenText(filename))
+            {
+                string currentStr;
+
+                currentStr = sr.ReadLine();
+                int c = int.Parse(currentStr);
+
+                currentStr = sr.ReadLine();
+                int r = int.Parse(currentStr);
+
+                currentStr = sr.ReadLine();
+                int cellSize = int.Parse(currentStr);
+
+                Board board = new Board(c, r, cellSize, 0);
+
+                for (int i = 0; i < r; i++)
+                {
+                    currentStr = sr.ReadLine();
+
+                    for (int j = 0; j < c; j++)
+                    {
+                        char ch = currentStr[j];
+                        board.Cells[i, j].boolRepresentation(ch);
+                    }
+                }
+
+                return board;
+            }
+        }
     }
     class Program
     {
@@ -172,12 +233,17 @@ namespace cli_life
         static void Main(string[] args)
         {
             Reset();
-            while(true)
+
+            string filename = "firstBoard.txt";
+
+            board = Board.ReadFromFile(filename);
+
+            while (true)
             {
                 Console.Clear();
                 Render();
                 board.Advance();
-                Thread.Sleep(1000);
+                Thread.Sleep(100);
             }
         }
     }
