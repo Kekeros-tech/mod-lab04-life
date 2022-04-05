@@ -14,6 +14,7 @@ namespace cli_life
         public bool IsAlive;
         public readonly List<Cell> neighbors = new List<Cell>();
         private bool IsAliveNext;
+
         public void DetermineNextLiveState()
         {
             int liveNeighbors = neighbors.Where(x => x.IsAlive).Count();
@@ -73,6 +74,207 @@ namespace cli_life
             File.WriteAllText(filename, jsonString);
         }
     }
+    public class Point
+    {
+        public int x { get; set; }
+        public int y { get; set; }
+
+        public Point(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+
+        public static List<Point> constructListOfPoints(int[] points)
+        {
+            List<Point> result = new List<Point>();
+            for (int i = 0; i < points.Length; i += 2)
+            {
+                result.Add(new Point(points[i], points[i + 1]));
+            }
+            return result;
+        }
+    }
+    public class Pattern
+    {
+        public List<Point> livingСells { get; set; }
+        public List<Point> deadCells { get; set; }
+
+        public Pattern(List<Point> livingCells, List<Point> deadCells)
+        {
+            this.livingСells = livingCells;
+            this.deadCells = deadCells;
+        }
+    }
+    public enum Figure
+    {
+        Block,
+        NotRecognized,
+        Tub,
+        Beehive1,
+        Beehive2,
+        Pond,
+        Ship1,
+        Ship2
+    }
+    public class PatternMap
+    {
+        public Dictionary<Figure, Pattern> dictOfPatternAndFigure { get; set; }
+
+        public PatternMap()
+        {
+            dictOfPatternAndFigure = new Dictionary<Figure, Pattern>();
+            List<Point> bufferOfLive = new List<Point>();
+            List<Point> bufferOfDead = new List<Point>();
+            for(int i = -1; i <= 2; i++)
+            {
+                for(int j = -1; j <= 2; j++)
+                {
+                    if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == 1 && j == 1))
+                    {
+                        bufferOfLive.Add(new Point(i, j));
+                    }
+                    else
+                    {
+                        bufferOfDead.Add(new Point(i, j));
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Block, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for(int i = -1; i <= 3; i++)
+            {
+                for(int j = -2; j <= 2; j++)
+                {
+                    if(!((i == -1 && j == -2) || (i == 3 && j == -2) || (i == -1 && j == 2) || (i == 3 && j == 2)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 1 && j == 1) || (i == 1 && j == -1) || (i == 2 && j == 0))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Tub, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 4; i++)
+            {
+                for (int j = -2; j <= 2; j++)
+                {
+                    if (!((i == -1 && j == -2) || (i == 4 && j == -2) || (i == -1 && j == 2) || (i == 4 && j == 2)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 1 && j == 1) || (i == 1 && j == -1)
+                            || (i == 2 && j == -1) || (i == 2 && j == 1) || (i == 3 && j == 0))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Beehive1, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 4; i++)
+            {
+                for (int j = -2; j <= 2; j++)
+                {
+                    if (!((i == -1 && j == -2) || (i == 3 && j == -2) || (i == -1 && j == 3) || (i == 3 && j == 3)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 2)
+                            || (i == 2 && j == 1) || (i == 2 && j == 0) || (i == 1 && j == -1))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Beehive2, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 4; i++)
+            {
+                for (int j = -2; j <= 2; j++)
+                {
+                    if (!((i == -1 && j == -2) || (i == 4 && j == -2) || (i == -1 && j == 3) || (i == 4 && j == 3)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 2)
+                            || (i == 2 && j == 2) || (i == 3 && j == 0) || (i == 3 && j == 1)
+                            || (i == 1 && j == -1) || (i == 2 && j == -1))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Pond, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 3; i++)
+            {
+                for (int j = -1; j <= 3; j++)
+                {
+                    if (!((i == 3 && j == -1) || (i == -1 && j == 3)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0)
+                            || (i == 1 && j == 2) || (i == 2 && j == 1) || (i == 2 && j == 2))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Ship1, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 3; i++)
+            {
+                for (int j = -2; j <= 2; j++)
+                {
+                    if (!((i == -1 && j == -2) || (i == 3 && j == 2)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 1)
+                            || (i == 1 && j == -1) || (i == 2 && j == -1) || (i == 2 && j == 0))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Ship2, new Pattern(bufferOfLive, bufferOfDead));
+        }
+    }
     public class Board
     {
         public readonly Cell[,] Cells;
@@ -100,6 +302,18 @@ namespace cli_life
         {
         }
 
+        public Board(Board board)
+        {
+            Cells = new Cell[board.Height / board.CellSize, board.Width / board.CellSize];
+            for (int x = 0; x < Rows; x++)
+                for (int y = 0; y < Columns; y++)
+                {
+                    Cells[x, y] = new Cell();
+                    Cells[x, y].IsAlive = board.Cells[x, y].IsAlive;
+                }
+            ConnectNeighbors();
+            CellSize = board.CellSize;
+        }
         readonly Random rand = new Random();
         public void Randomize(double liveDensity)
         {
@@ -190,6 +404,115 @@ namespace cli_life
                 return board;
             }
         }
+        public string stringRepresentation()
+        {
+            return null;
+        }
+        public int getCountOfAliveCells()
+        {
+            int count = 0;
+            for(int i = 0; i < Rows; i++)
+            {
+                for(int j = 0; j < Columns; j++)
+                {
+                    if (Cells[i, j].IsAlive)
+                    {
+                        count += 1;
+                    }
+                }
+            }
+            return count;
+        }
+        public bool cellsMatch(Board valueToCheck)
+        {
+            for(int i = 0; i < Rows; i++)
+            {
+                for(int j = 0; j < Columns; j++)
+                {
+                    if(Cells[i,j].IsAlive != valueToCheck.Cells[i, j].IsAlive)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        private bool cellСomparison(int x, int y, Pattern pattern, bool typeOfComparison)
+        {
+            List<Point> listForComparison = new List<Point>();
+            if (typeOfComparison)
+            {
+                listForComparison = pattern.livingСells;
+            }
+            else
+            {
+                listForComparison = pattern.deadCells;
+            }
+            foreach(Point point in listForComparison)
+            {
+                int x_current;
+                if(x + point.x < 0)
+                {
+                    x_current = x + point.x + Rows;
+                }
+                else
+                {
+                    x_current = (x + point.x) % Rows;
+                }
+
+                int y_current;
+                if (y + point.y < 0)
+                {
+                    y_current = y + point.y + Columns;
+                }
+                else
+                {
+                    y_current = (y + point.y) % Columns;
+                }
+
+                if (Cells[x_current, y_current].IsAlive != typeOfComparison)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public Dictionary<Figure, List<Point>> recognizePatternsOnBoard(PatternMap patternMap)
+        {
+            Dictionary<Figure, List<Point>> resultOfPatternRecognation = new Dictionary<Figure, List<Point>>();
+            for (int i = 0; i < Rows; i++)
+            {
+                for(int j = 0; j < Columns; j++)
+                {
+                    if (Cells[i, j].IsAlive)
+                    {
+                        Figure resultOfRecognition = Figure.NotRecognized;
+                        foreach (KeyValuePair<Figure,Pattern> pattent in patternMap.dictOfPatternAndFigure)
+                        {
+                            if(cellСomparison(i,j,pattent.Value,true))
+                            {
+                                if(cellСomparison(i, j, pattent.Value, false))
+                                {
+                                    resultOfRecognition = pattent.Key;
+                                }
+                            }
+                        }
+                        if(resultOfRecognition != Figure.NotRecognized)
+                        {
+                            List<Point> alreadyRemembered = new List<Point>();
+                            if (resultOfPatternRecognation.ContainsKey(resultOfRecognition))
+                            {
+                                alreadyRemembered = resultOfPatternRecognation[resultOfRecognition];
+                                resultOfPatternRecognation.Remove(resultOfRecognition);
+                            }
+                            alreadyRemembered.Add(new Point(i, j));
+                            resultOfPatternRecognation.Add(resultOfRecognition, alreadyRemembered);
+                        }
+                    }
+                }
+            }
+            return resultOfPatternRecognation;
+        }
     }
     class Program
     {
@@ -234,16 +557,32 @@ namespace cli_life
         {
             Reset();
 
-            string filename = "firstBoard.txt";
+            Board bufferBoard1 = new Board(board);
+            Board bufferBoard2 = new Board(board);
 
-            board = Board.ReadFromFile(filename);
-
-            while (true)
+            //board = Board.ReadFromFile("firstBoard.txt");
+            
+            do
             {
                 Console.Clear();
                 Render();
                 board.Advance();
-                Thread.Sleep(100);
+                bufferBoard1 = new Board(board);
+                Thread.Sleep(10);
+                Console.Clear();
+                Render();
+                board.Advance();
+                bufferBoard2 = new Board(board);
+                Thread.Sleep(10);
+                Console.Clear();
+                Render();
+                board.Advance();
+                Thread.Sleep(10);
+            } while (!board.cellsMatch(bufferBoard1) && !board.cellsMatch(bufferBoard2));
+            Dictionary<Figure, List<Point>> resultOfRecognition = board.recognizePatternsOnBoard(new PatternMap());
+            foreach(var buffer in resultOfRecognition)
+            {
+                Console.WriteLine(buffer.Key);
             }
         }
     }
