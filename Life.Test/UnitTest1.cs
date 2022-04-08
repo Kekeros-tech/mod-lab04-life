@@ -9,14 +9,14 @@ namespace Life.Test
     public class UnitTest1
     {
         [TestMethod]
-        public void resetTestWithJsonFile()
+        public void TestMethod1()
         {
             string filename = "firstTest.json";
             Board board = Program.Reset(filename);
             Assert.IsTrue((board.Columns == 20 && board.Rows == 30) == true);
         }
         [TestMethod]
-        public void readBoardFromFile()
+        public void TestMethod2()
         {
             Board board = Board.ReadFromFile("secondAndThirdTest.txt");
             Board boardFor—omparison = new Board(5, 5, 1);
@@ -38,34 +38,34 @@ namespace Life.Test
             Assert.IsTrue(board.cellsMatch(boardFor—omparison));
         }
         [TestMethod]
-        public void countOfAliveCellsOfBoard()
+        public void TestMethod3()
         {
             Board board = Board.ReadFromFile("secondAndThirdTest.txt");
             Assert.IsTrue(board.getCountOfAliveCells() == 6);
         }
         [TestMethod]
-        public void recognizeEmpty()
+        public void TestMethod4()
         {
             Board board = Board.ReadFromFile("recognizeEmpty.txt");
             Dictionary<Figure, List<Point>> resultOfPatternRecognation = board.recognizePatternsOnBoard(new PatternMap());
             Assert.IsTrue(resultOfPatternRecognation.Count == 0);
         }
         [TestMethod]
-        public void recognizeBlock()
+        public void TestMethod5()
         {
             Board board = Board.ReadFromFile("recognizeBlock.txt");
             Dictionary<Figure, List<Point>> resultOfPatternRecognation = board.recognizePatternsOnBoard(new PatternMap());
             Assert.IsTrue(resultOfPatternRecognation.Count == 1 && resultOfPatternRecognation.ContainsKey(Figure.Block));
         }
         [TestMethod]
-        public void recognizeTub()
+        public void TestMethod6()
         {
             Board board = Board.ReadFromFile("recognizeTub.txt");
             Dictionary<Figure, List<Point>> resultOfPatternRecognation = board.recognizePatternsOnBoard(new PatternMap());
             Assert.IsTrue(resultOfPatternRecognation.Count == 1 && resultOfPatternRecognation.ContainsKey(Figure.Tub));
         }
         [TestMethod]
-        public void recognizeBeehive()
+        public void TestMethod7()
         {
             Board board = Board.ReadFromFile("recognizeBeehive.txt");
             Dictionary<Figure, List<Point>> resultOfPatternRecognation = board.recognizePatternsOnBoard(new PatternMap());
@@ -73,14 +73,14 @@ namespace Life.Test
                 && resultOfPatternRecognation.ContainsKey(Figure.Beehive2));
         }
         [TestMethod]
-        public void recognizePond()
+        public void TestMethod8()
         {
             Board board = Board.ReadFromFile("recognizePond.txt");
             Dictionary<Figure, List<Point>> resultOfPatternRecognation = board.recognizePatternsOnBoard(new PatternMap());
             Assert.IsTrue(resultOfPatternRecognation.Count == 1 && resultOfPatternRecognation.ContainsKey(Figure.Pond));
         }
         [TestMethod]
-        public void recognizeShip()
+        public void TestMethod9()
         {
             Board board = Board.ReadFromFile("recognizeShip.txt");
             Dictionary<Figure, List<Point>> resultOfPatternRecognation = board.recognizePatternsOnBoard(new PatternMap());
@@ -88,7 +88,7 @@ namespace Life.Test
                 && resultOfPatternRecognation.ContainsKey(Figure.Ship2));
         }
         [TestMethod]
-        public void recognizeLoaf()
+        public void TestMethod10()
         {
             Board board = Board.ReadFromFile("recognizeLoaf.txt");
             Dictionary<Figure, List<Point>> resultOfPatternRecognation = board.recognizePatternsOnBoard(new PatternMap());
@@ -97,7 +97,7 @@ namespace Life.Test
                 && resultOfPatternRecognation.ContainsKey(Figure.Loaf4));
         }
         [TestMethod]
-        public void recognizeBoat()
+        public void TestMethod11()
         {
             Board board = Board.ReadFromFile("recognizeBoat.txt");
             Dictionary<Figure, List<Point>> resultOfPatternRecognation = board.recognizePatternsOnBoard(new PatternMap());
@@ -106,7 +106,7 @@ namespace Life.Test
                 && resultOfPatternRecognation.ContainsKey(Figure.Boat4));
         }
         [TestMethod]
-        public void recognizeBlinker()
+        public void TestMethod12()
         {
             Board board = Board.ReadFromFile("recognizeBlinker.txt");
             Dictionary<Figure, List<Point>> resultOfPatternRecognation = board.recognizePatternsOnBoard(new PatternMap());
@@ -114,7 +114,7 @@ namespace Life.Test
                 && resultOfPatternRecognation.ContainsKey(Figure.Blinker2));
         }
         [TestMethod]
-        public void recognizeEight()
+        public void TestMethod13()
         {
             Board board = Board.ReadFromFile("recognizeEight.txt");
             Dictionary<Figure, List<Point>> resultOfPatternRecognation = board.recognizePatternsOnBoard(new PatternMap());
@@ -122,7 +122,7 @@ namespace Life.Test
                 && resultOfPatternRecognation.ContainsKey(Figure.Eight2));
         }
         [TestMethod]
-        public void recognizeEverything()
+        public void TestMethod14()
         {
             Board board = Board.ReadFromFile("recognizeEverything.txt");
             Dictionary<Figure, List<Point>> resultOfPatternRecognation = board.recognizePatternsOnBoard(new PatternMap());
@@ -131,7 +131,7 @@ namespace Life.Test
                 && resultOfPatternRecognation.ContainsKey(Figure.Tub));
         }
         [TestMethod]
-        public void recognizeEverythingAndGetSymmetricalFigures()
+        public void TestMethod15()
         {
             Board board = Board.ReadFromFile("recognizeEverything.txt");
             Dictionary<Figure, List<Point>> resultOfPatternRecognation = board.recognizePatternsOnBoard(new PatternMap());
@@ -141,7 +141,7 @@ namespace Life.Test
                 && Board.countNumberSymmetricalFigures(resultOfPatternRecognation, new PatternMap()) == 5);
         }
         [TestMethod]
-        public void writeBoard()
+        public void TestMethod16()
         {
             Board board = Board.ReadFromFile("recognizeEverything.txt");
             string filename = "writeBoard.txt";
