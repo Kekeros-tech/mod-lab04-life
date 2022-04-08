@@ -19,23 +19,22 @@ namespace Life.Test
         public void TestMethod2()
         {
             Board board = Board.ReadFromFile("secondAndThirdTest.txt");
-            Board boardFor—omparison = new Board(5, 5, 1);
-            for(int i = 0; i < boardFor—omparison.Rows; i++)
+            Board boardForComparison = new Board(5, 5, 1);
+            for(int i = 0; i < boardForComparison.Rows; i++)
             {
-                for(int j = 0; j < boardFor—omparison.Columns; j++)
+                for(int j = 0; j < boardForComparison.Columns; j++)
                 {
-                    if((i == 0 && j == 0) || (i == 1 && j == 2) || (i == 2 && j == 1) 
-                        || (i == 2 && j == 3) || (i == 4 && j == 4) || (i == 3 && j == 2))
+                    if((i == 0 && j == 0) || (i == 1 && j == 2) || (i == 2 && j == 1) || (i == 2 && j == 3) || (i == 4 && j == 4) || (i == 3 && j == 2))
                     {
-                        boardFor—omparison.Cells[i, j].IsAlive = true;
+                        boardForComparison.Cells[i, j].IsAlive = true;
                     }
                     else
                     {
-                        boardFor—omparison.Cells[i, j].IsAlive = false;
+                        boardForComparison.Cells[i, j].IsAlive = false;
                     }
                 }
             }
-            Assert.IsTrue(board.cellsMatch(boardFor—omparison));
+            Assert.IsTrue(board.cellsMatch(boardForComparison));
         }
         [TestMethod]
         public void TestMethod3()
