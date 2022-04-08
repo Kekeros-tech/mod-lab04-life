@@ -115,15 +115,29 @@ namespace cli_life
         Beehive2,
         Pond,
         Ship1,
-        Ship2
+        Ship2,
+        Loaf1,
+        Loaf2,
+        Loaf3,
+        Loaf4,
+        Boat1,
+        Boat2,
+        Boat3,
+        Boat4,
+        Blinker1,
+        Blinker2,
+        Eight1,
+        Eight2
     }
     public class PatternMap
     {
         public Dictionary<Figure, Pattern> dictOfPatternAndFigure { get; set; }
+        public List<Figure> symmetricalFigures;
 
         public PatternMap()
         {
             dictOfPatternAndFigure = new Dictionary<Figure, Pattern>();
+            symmetricalFigures = new List<Figure>();
             List<Point> bufferOfLive = new List<Point>();
             List<Point> bufferOfDead = new List<Point>();
             for(int i = -1; i <= 2; i++)
@@ -273,6 +287,276 @@ namespace cli_life
                 }
             }
             dictOfPatternAndFigure.Add(Figure.Ship2, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 4; i++)
+            {
+                for (int j = -2; j <= 3; j++)
+                {
+                    if (!( (i == -1 && j == -2) || (i == 3 && j == -2) || (i == 4 && j == -2) 
+                        || (i == 4 && j == -1) || (i == -1 && i == 3) || (i == 4 && j == 3) ))
+                    {
+                        if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == -1)
+                            || (i == 1 && j == 2) || (i == 2 && j == 2) || (i == 2 && j == 0)
+                            || (i == 3 && j == 1))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Loaf1, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 4; i++)
+            {
+                for (int j = -2; j <= 3; j++)
+                {
+                    if (!((i == -1 && j == -2) || (i == -1 && j == 3) || (i == 4 && j == -2)
+                        || (i == 4 && j == 2) || (i == 4 && i == 3) || (i == 3 && j == 3)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == -1)
+                            || (i == 2 && j == 1) || (i == 2 && j == -1) || (i == 1 && j == 2)
+                            || (i == 3 && j == 0))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Loaf2, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 4; i++)
+            {
+                for (int j = -2; j <= 3; j++)
+                {
+                    if (!((i == -1 && j == -2) || (i == -1 && j == 2) || (i == -1 && j == 3)
+                        || (i == 0 && j == 3) || (i == 4 && i == -2) || (i == 4 && j == 3)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 1 && j == 1) || (i == 1 && j == -1)
+                            || (i == 2 && j == -1) || (i == 2 && j == 2) || (i == 3 && j == 0)
+                            || (i == 3 && j == 1))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Loaf3, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 4; i++)
+            {
+                for (int j = -3; j <= 2; j++)
+                {
+                    if (!((i == -1 && j == -3) || (i == -1 && j == -2) || (i == 0 && j == -3)
+                        || (i == -1 && j == 2) || (i == 4 && i == -3) || (i == 4 && j == 2) ))
+                    {
+                        if ((i == 0 && j == 0) || (i == 1 && j == 1) || (i == 1 && j == -1)
+                            || (i == 2 && j == 1) || (i == 2 && j == -2) || (i == 3 && j == 0)
+                            || (i == 3 && j == -1))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Loaf4, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 3; i++)
+            {
+                for (int j = -2; j <= 2; j++)
+                {
+                    if (!((i == -1 && j == -2) || (i == -1 && j == 2) || (i == 3 && j == -2)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 1 && j == 1) || (i == 1 && j == -1)
+                            || (i == 2 && j == 1) || (i == 2 && j == 0))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Boat1, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 3; i++)
+            {
+                for (int j = -1; j <= 3; j++)
+                {
+                    if (!((i == -1 && j == 3) || (i == 3 && j == -1) || (i == 3 && j == 3)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0)
+                            || (i == 1 && j == 2) || (i == 2 && j == 1))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Boat2, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 3; i++)
+            {
+                for (int j = -2; j <= 2; j++)
+                {
+                    if (!((i == -1 && j == -2) || (i == 3 && j == -2) || (i == 3 && j == 2)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 1)
+                            || (i == 1 && j == -1) || (i == 2 && j == 0))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Boat3, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 3; i++)
+            {
+                for (int j = -2; j <= 2; j++)
+                {
+                    if (!((i == -1 && j == -2) || (i == -1 && j == 2) || (i == 3 && j == 2)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 1 && j == 1) || (i == 1 && j == -1)
+                            || (i == 2 && j == -1) || (i == 2 && j == 0))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Boat4, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 3; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    if ((i == 0 && j == 0) || (i == 1 && j == 0) || (i == 2 && j == 0))
+                    {
+                        bufferOfLive.Add(new Point(i, j));
+                    }
+                    else
+                    {
+                        bufferOfDead.Add(new Point(i, j));
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Blinker1, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 3; j++)
+                {
+                    if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 0 && j == 2))
+                    {
+                        bufferOfLive.Add(new Point(i, j));
+                    }
+                    else
+                    {
+                        bufferOfDead.Add(new Point(i, j));
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Blinker2, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 2; i++)
+            {
+                for (int j = -2; j <= 1; j++)
+                {
+                    if (!((i == -1 && j == -2) || (i == 1 && j == 2)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 1 && j == -1))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Eight1, new Pattern(bufferOfLive, bufferOfDead));
+
+            bufferOfLive = new List<Point>();
+            bufferOfDead = new List<Point>();
+            for (int i = -1; i <= 2; i++)
+            {
+                for (int j = -1; j <= 2; j++)
+                {
+                    if (!((i == -1 && j == 2) || (i == 2 && j == -1)))
+                    {
+                        if ((i == 0 && j == 0) || (i == 1 && j == 1))
+                        {
+                            bufferOfLive.Add(new Point(i, j));
+                        }
+                        else
+                        {
+                            bufferOfDead.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+            dictOfPatternAndFigure.Add(Figure.Eight2, new Pattern(bufferOfLive, bufferOfDead));
+
+            symmetricalFigures.Add(Figure.Block);
+            symmetricalFigures.Add(Figure.Beehive1);
+            symmetricalFigures.Add(Figure.Beehive2);
+            symmetricalFigures.Add(Figure.Tub);
+            symmetricalFigures.Add(Figure.Pond);
+            symmetricalFigures.Add(Figure.Blinker1);
+            symmetricalFigures.Add(Figure.Blinker2);
         }
     }
     public class Board
@@ -404,10 +688,6 @@ namespace cli_life
                 return board;
             }
         }
-        public string stringRepresentation()
-        {
-            return null;
-        }
         public int getCountOfAliveCells()
         {
             int count = 0;
@@ -513,14 +793,27 @@ namespace cli_life
             }
             return resultOfPatternRecognation;
         }
+
+        public static int countNumberSymmetricalFigures(Dictionary<Figure, List<Point>> resultOfPatternRecognation, PatternMap patternMap)
+        {
+            int count = 0;
+            foreach(var result in resultOfPatternRecognation)
+            {
+                if (patternMap.symmetricalFigures.Contains(result.Key))
+                {
+                    count += result.Value.Count();
+                }
+            }
+            return count;
+        }
     }
-    class Program
+    public class Program
     {
         static Board board;
-        static private void Reset()
+        static int countSymmetricalFigures = 0;
+        static int countOfIteration = 0;
+        static public Board Reset(string filename)
         {
-            string filename = "BoardSettings.json";
-
             BoardSettings settings = new BoardSettings(50,20,1,0.5f);
 
             if (File.Exists(filename))
@@ -532,7 +825,7 @@ namespace cli_life
                 BoardSettings.writeToFile(filename, settings);
             }
 
-            board = new Board(settings);
+            return new Board(settings);
         }
         static void Render()
         {
@@ -553,37 +846,42 @@ namespace cli_life
                 Console.Write('\n');
             }
         }
+        static Board workOfAlgo(PatternMap map)
+        {
+            Console.Clear();
+            Render();
+            board.Advance();
+            Thread.Sleep(10);
+            Dictionary<Figure, List<Point>> resultOfRecognition = board.recognizePatternsOnBoard(map);
+            countSymmetricalFigures += Board.countNumberSymmetricalFigures(resultOfRecognition, map);
+            countOfIteration += 1;
+            return new Board(board);
+        }
         static void Main(string[] args)
         {
-            Reset();
+            string filename = "BoardSettings.json";
+
+            board = Reset(filename);
 
             Board bufferBoard1 = new Board(board);
             Board bufferBoard2 = new Board(board);
 
-            //board = Board.ReadFromFile("firstBoard.txt");
-            
+            PatternMap map = new PatternMap();
+
             do
             {
-                Console.Clear();
-                Render();
-                board.Advance();
-                bufferBoard1 = new Board(board);
-                Thread.Sleep(10);
-                Console.Clear();
-                Render();
-                board.Advance();
-                bufferBoard2 = new Board(board);
-                Thread.Sleep(10);
-                Console.Clear();
-                Render();
-                board.Advance();
-                Thread.Sleep(10);
+                bufferBoard1 = workOfAlgo(map);
+                bufferBoard2 = workOfAlgo(map);
+                workOfAlgo(map);
             } while (!board.cellsMatch(bufferBoard1) && !board.cellsMatch(bufferBoard2));
-            Dictionary<Figure, List<Point>> resultOfRecognition = board.recognizePatternsOnBoard(new PatternMap());
-            foreach(var buffer in resultOfRecognition)
+
+            Dictionary<Figure, List<Point>> boardResult = board.recognizePatternsOnBoard(map);
+            foreach (var buffer in boardResult)
             {
                 Console.WriteLine(buffer.Key);
             }
+            Console.WriteLine(countSymmetricalFigures);
+            Console.WriteLine(countOfIteration);
         }
     }
 }
