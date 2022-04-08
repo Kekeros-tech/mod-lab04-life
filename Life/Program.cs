@@ -860,14 +860,10 @@ namespace cli_life
         static void Main(string[] args)
         {
             string filename = "BoardSettings.json";
-
             board = Reset(filename);
-
             Board bufferBoard1 = new Board(board);
             Board bufferBoard2 = new Board(board);
-
             PatternMap map = new PatternMap();
-
             do
             {
                 bufferBoard1 = workOfAlgo(map);
